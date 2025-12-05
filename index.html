@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roteiro Roma - Edição Luxo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --roman-red: #8E2800; /* Vermelho Pompeiano */
+            --roman-gold: #D4AF37; /* Ouro Antigo */
+            --roman-cream: #FDF6E3; /* Travertino Claro */
+            --text-dark: #2c2320;
+            --text-light: #fffaf0;
+            --bg-texture: #fffbf2;
+        }
+
+        body {
+            font-family: 'Merriweather', serif;
+            background-color: #333; /* Fundo escuro fora do papel */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            color: var(--text-dark);
+        }
+
+        .a4-page {
+            background-color: var(--bg-texture);
+            /* Textura subtil de pergaminho usando gradientes */
+            background-image: linear-gradient(to bottom right, rgba(255,255,255,0.8), rgba(253, 246, 227, 0.6));
+            width: 210mm;
+            min-height: 297mm;
+            padding: 15mm;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-sizing: border-box;
+            position: relative;
+            border: 8px solid double var(--roman-gold); /* Borda dupla estilo moldura */
+        }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        /* Elemento decorativo de louros */
+        header::after {
+            content: '🌿 🏛️ 🌿';
+            display: block;
+            font-size: 2em;
+            color: var(--roman-gold);
+            margin-top: 10px;
+            letter-spacing: 20px;
+        }
+
+        h1 {
+            font-family: 'Cinzel Decorative', cursive;
+            color: var(--roman-red);
+            font-size: 36pt;
+            margin: 0;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 14pt;
+            color: var(--roman-gold);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        /* --- Hotel Base Card --- */
+        .hotel-box {
+            background: #fff;
+            border: 2px solid var(--roman-gold);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .hotel-icon { font-size: 1.5em; }
+
+        /* --- Day Sections --- */
+        .day-section {
+            margin-bottom: 35px;
+            page-break-inside: avoid;
+            background: rgba(255,255,255,0.5); /* Fundo semi-transparente para destacar o conteúdo */
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .day-header {
+            background: var(--roman-red);
+            background-image: linear-gradient(45deg, var(--roman-red), #a03000);
+            color: var(--roman-cream);
+            padding: 12px 20px;
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 16pt;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--roman-gold);
+        }
+
+        /* --- Timeline & Events --- */
+        .timeline {
+            border-left: 4px dotted var(--roman-gold); /* Linha do tempo pontilhada */
+            margin-left: 25px;
+            padding: 20px 0 20px 25px;
+        }
+
+        .event {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        
+        /* Marcador da linha do tempo (Escudo Dourado) */
+        .event::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 0px;
+            width: 14px;
+            height: 14px;
+            background: var(--roman-gold);
+            border-radius: 50%;
+            border: 3px solid var(--roman-cream);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .time {
+            font-family: 'Cinzel Decorative', cursive;
+            font-weight: 900;
+            color: var(--roman-red);
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .title {
+            font-weight: 900;
+            font-size: 1.2em;
+            color: #222;
+            margin-bottom: 5px;
+        }
+
+        .details {
+            font-size: 0.95em;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .highlight-box {
+            background-color: #fffde7;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border-left: 4px solid #f1c40f;
+            margin-top: 8px;
+            font-size: 0.9em;
+            display: inline-block;
+        }
+
+        /* --- Layout com Imagens --- */
+        /* Flex container para eventos com fotos */
+        .event-with-photo {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .photo-container {
+            flex: 0 0 120px; /* Largura fixa para a imagem */
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid var(--roman-gold);
+            box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        .event-content {
+            flex: 1;
+        }
+
+        /* --- Botões de Link --- */
+        a.map-link {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--roman-red);
+            color: var(--roman-cream);
+            text-decoration: none;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 700;
+            margin-top: 8px;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        a.map-link:hover {
+            background-color: var(--roman-gold);
+            color: var(--roman-red);
+            transform: translateY(-2px);
+        }
+        
+        a.map-link::before {
+            content: '🗺️';
+            margin-right: 5px;
+            font-size: 1.1em;
+        }
+
+        /* Print Settings */
+        @media print {
+            body { background: none; padding: 0; }
+            .a4-page { box-shadow: none; border: none; width: 100%; margin: 0; padding: 10mm; background-image: none; background-color: #fff; }
+            .day-section, .hotel-box { box-shadow: none; border: 1px solid #ccc; background: none;}
+            .day-header { color: #000 !important; background: #eee !important; border-bottom: 2px solid #333; -webkit-print-color-adjust: exact; }
+            a.map-link { background: none; color: #000; border: 1px solid #333; box-shadow: none; padding: 2px 5px;}
+        }
+    </style>
+</head>
+<body>
+
+<div class="a4-page">
+    <header>
+        <h1>Roteiro Expresso: Roma</h1>
+        <div class="subtitle">3 Dias de História e "Dolce Vita"</div>
+    </header>
+
+    <div class="hotel-box">
+        <span class="hotel-icon">🏨</span>
+        <div>
+            <strong>BASE: Hotel Moderno Roma (Termini)</strong><br>
+            <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Moderno+Roma+Via+Daniele+Manin" target="_blank" class="map-link">Ver Localização</a>
+        </div>
+    </div>
+
+    <div class="day-section">
+        <div class="day-header">
+            <span>🗓️ SÁBADO</span>
+            <span style="font-size:0.7em; letter-spacing: 1px; text-transform: uppercase;">Vaticano & Trastevere</span>
+        </div>
+        <div class="timeline">
+            <div class="event">
+                <div class="time">11:25 – Chegada & Almoço</div>
+                <div class="details">
+                    Aeroporto → Termini via Leonardo Express (~32€). Check-in 12:30.
+                    <br>Almoço rápido às 13:00: <strong>Mercato Centrale</strong>.
+                    <br><a href="https://maps.app.goo.gl/gHKJwBATHZxzSLHz6" target="_blank" class="map-link">Mercato Centrale</a>
+                </div>
+            </div>
+            
+            <div class="event event-with-photo">
+                 <div class="photo-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Basilica_di_San_Pietro_in_Vaticano_September_2015-1a.jpg/320px-Basilica_di_San_Pietro_in_Vaticano_September_2015-1a.jpg" alt="São Pedro">
+                </div>
+                <div class="event-content">
+                    <div class="time">14:00 – O Vaticano ⭐</div>
+                    <div class="title">Basílica de São Pedro & Museus</div>
+                    <div class="details">
+                        Metro A: Termini → Ottaviano.
+                        <div class="highlight-box">⚠️ Fila da Basílica >45min? Vá direto aos Museus (15:30) com bilhete comprado!</div>
+                         <br><a href="https://maps.app.goo.gl/5q4r7hQ2jcqDo6VXA" target="_blank" class="map-link">Rota Basílica</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event">
+                <div class="time">17:30 – Castel Sant’Angelo</div>
+                <div class="details">Caminhada pela Via della Conciliazione. Vista do terraço.
+                <br><a href="https://maps.app.goo.gl/T1HQVkKTJLW6FKpJA" target="_blank" class="map-link">Rota a pé</a>
+                </div>
+            </div>
+            
+             <div class="event event-with-photo">
+                 <div class="photo-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Santa_Maria_in_Trastevere_-_facade.jpg/320px-Santa_Maria_in_Trastevere_-_facade.jpg" alt="Trastevere">
+                </div>
+                <div class="event-content">
+                    <div class="time">19:00 – Noite em Trastevere ⭐</div>
+                     <div class="title">Ponte Sant’Angelo & Jantar</div>
+                    <div class="details">
+                        Atravesse a ponte ao pôr do sol. Jantar: **Da Enzo al 29** (fila!).
+                        Retorno: Táxi ou Tram 8 para Piazza Venezia.
+                        <br><a href="https://maps.app.goo.gl/jncb4Erg94iijkcV6" target="_blank" class="map-link">Tram 8</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="day-section">
+        <div class="day-header" style="background-image: linear-gradient(45deg, var(--roman-gold), #b08d2b);">
+            <span>🗓️ DOMINGO</span>
+            <span style="font-size:0.7em; letter-spacing: 1px; text-transform: uppercase;">Fontes & "Dolce Far Niente"</span>
+        </div>
+        <div class="timeline">
+             <div class="event event-with-photo">
+                 <div class="photo-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Trevi_Fountain%2C_Rome%2C_Italy_2_-_May_2007.jpg/320px-Trevi_Fountain%2C_Rome%2C_Italy_2_-_May_2007.jpg" alt="Fontana di Trevi">
+                </div>
+                <div class="event-content">
+                    <div class="time">09:00 – Rota das Fontes (Manhã a pé)</div>
+                     <div class="details">
+                        1. <strong>Fontana di Trevi</strong> (Vá cedo!). <a href="https://maps.app.goo.gl/kGaeFgnqGnyyjc8o7" target="_blank" class="map-link">Mapa</a><br>
+                        2. <strong>Pantheon</strong> (Reserva ao fim de semana!).<br>
+                        3. <strong>Piazza Navona</strong> & Campo de’ Fiori.
+                    </div>
+                </div>
+            </div>
+
+            <div class="event">
+                <div class="time">12:30 – Almoço Típico</div>
+                <div class="title">Osteria da Fortunata</div>
+                <div class="details">Massa fresca feita na hora no centro histórico.</div>
+            </div>
+            <div class="event">
+                <div class="time">14:00 – Tarde Relaxante</div>
+                <div class="title">Piazza di Spagna & Villa Borghese</div>
+                <div class="details">Compras na Via del Corso ou passeio no parque com Gelato.</div>
+            </div>
+            <div class="event">
+                <div class="time">20:00 – Jantar no Bairro Monti</div>
+                <div class="details">Vibe boémia, galerias de arte e bares de vinho perto do hotel.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="day-section">
+        <div class="day-header" style="background-image: linear-gradient(45deg, #2c3e50, #4ca1af);">
+            <span>🗓️ SEGUNDA</span>
+            <span style="font-size:0.7em; letter-spacing: 1px; text-transform: uppercase;">Roma Antiga & Despedida</span>
+        </div>
+        <div class="timeline">
+             <div class="event event-with-photo">
+                 <div class="photo-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/320px-Colosseo_2020.jpg" alt="Coliseu">
+                </div>
+                <div class="event-content">
+                    <div class="time">09:00 – O Coliseu & Fórum ⭐</div>
+                     <div class="details">
+                        Metro B: Termini → Colosseo. Bilhete "Full Experience" com hora marcada é essencial!
+                        <br>Inclui Fórum Romano e Palatino (logo ao lado).
+                    </div>
+                </div>
+            </div>
+            <div class="event">
+                <div class="time">12:30 – Almoço de Despedida (Monti)</div>
+                <div class="details">Sugestões: Trieste Pizza (rápido) ou Urbana 47. Caminhada final pela Via dei Fori Imperiali.</div>
+            </div>
+            <div class="event">
+                <div class="time">16:00 – Partida (FCO) ✈️</div>
+                <div class="details">Recolher malas no hotel. Leonardo Express (Plataforma 23/24). Check-in 2h antes.</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
